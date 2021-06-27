@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+:root {
+    --primary-color: #758646;
+    --dark-color: #344620;
+    --dark-text: #0A1128;
+    --bright-color: #F3E9DC;
+    --white: #fff;
+    --black: #000;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: var(--dark-text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2 {
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 10px 0;
+}
+
+p {
+    margin: 10px 0;
+}
+
+img {
+    width: 100%;
+}
+
+/* navbar styling */
+
+.navbar {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    height: 70px;
+    font-weight: 400;
+}
+
+.navbar ul {
+    display: flex;
+}
+
+.navbar .flex {
+    justify-content: space-between;
+}
+
+.navbar a {
+    color: var(--bright-color);
+    padding: 10px;
+    margin: 0 5px;
+}
+
+.navbar a:hover {
+    border-bottom: 1px var(--bright-color) solid;
+}
+
+.logo {
+    color: var(--bright-color);
+}
+/* footer */
+
+.footer {
+    margin-top: auto;
+}
+
+.footer a {
+    margin: 0 5px;
+    padding: 10px;
+}
+
+.footer .social a {
+    transition: transform 0.2s ease-in;
+}
+
+.footer div,
+.footer ul {
+    display: flex;
+}
+
+.footer .flex {
+    justify-content: space-between;
+}
+
+.footer nav a:hover {
+    border-bottom: 1px var(--bright-color) solid;
+}
+
+.footer .social a:hover {
+    transform: translateY(-5px);
+}
+
+/* utilities */
+
+.bg-dark {
+    background-color: var(--dark-color);
+    color: var(--bright-color);
+}
+
+.bg-dark a {
+  color: var(--bright-color);
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    overflow: auto;
+    padding: 0 40px;
+}
+
+.card {
+    background-color: var(--white);;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 30px;
+    cursor: pointer;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px var(--white) solid;
+}
+
+.btn:hover {
+    transform: scale(0.95);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-6 {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+/* margin */
+
+.my-1 {
+    margin: 1rem 0;
+}
+
+.my-2 {
+    margin: 1.5rem 0;
+}
+
+.my-3 {
+    margin: 2rem 0;
+}
+
+.my-4 {
+    margin: 3rem 0;
+}
+
+.my-5 {
+    margin: 4rem 0;
+}
+
+.m-1 {
+    margin: 1rem;
+}
+
+.m-2 {
+    margin: 1.5rem;
+}
+
+.m-3 {
+    margin: 2rem;
+}
+
+.m-4 {
+    margin: 3rem;
+}
+
+.m-5 {
+    margin: 4rem;
+}
+
+/* padding */
+
+.my-1 {
+    padding: 1rem 0;
+}
+
+.py-2 {
+    padding: 1.5rem 0;
+}
+
+.py-3 {
+    padding: 2rem 0;
+}
+
+.py-4 {
+    padding: 3rem 0;
+}
+
+.py-5 {
+    padding: 4rem 0;
+}
+
+.p-1 {
+    padding: 1rem;
+}
+
+.p-2 {
+    padding: 1.5rem;
+}
+
+.p-3 {
+    padding: 2rem;
+}
+
+.p-4 {
+    padding: 3rem;
+}
+
+.p-5 {
+    padding: 4rem;
+}

@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vegelastic</title>
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+<!--Navigation bar-->
+<div class="navbar">
+    <div class="container flex">
+        <h1 class="logo">Vegelastic</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Kategorie</a></li>
+                <li><a href="#">O autorce</a></li>
+                <li><a href="#">Kontakt</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div>
+<!-- Page content will be loaded here -->
+{% block content %}
+{% endblock %}
+</div>
+
+<!-- footer -->
+<footer class="footer bg-dark py-2">
+    <div class="container grid grid-3 flex">
+        <div>
+            <h1>Vegelastic</h1>
+        </div>
+        <div>
+            <nav>
+                <ul>
+                    <li><a href="#">Strona główna</a></li>
+                    <li><a href="#">Kategorie</a></li>
+                    <li><a href="#">O autorce</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
