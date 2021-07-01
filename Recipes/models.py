@@ -70,8 +70,8 @@ class RecipeCategory(models.Model):
 class RecipeIngredient(models.Model):
     ingredient_description = models.TextField(blank=True)
     is_searchable = models.BooleanField(default=False)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe ingredients')
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipe ingredients')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_ingredients')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipe_ingredients')
     measure = models.IntegerField(choices=MEASURE_CHOICES)
     amount = models.FloatField()
     servings_multiplier = models.PositiveSmallIntegerField()
@@ -91,10 +91,10 @@ class RecipeIngredient(models.Model):
 
 
 class RecipeImage(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe images')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_images')
     image = models.ImageField(upload_to='media/')
 
 
 class IngredientImage(models.Model):
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='ingredient images')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='ingredient_images')
     image = models.ImageField(upload_to=f'media/')
