@@ -75,6 +75,81 @@ img {
 .logo {
     color: var(--bright-color);
 }
+
+/* recipe */
+
+.recipe {
+    padding: 30px 0;
+    color: var(--dark-text);
+    background-color: var(--white);
+    position: relative;
+}
+
+.recipe h1 {
+    font-size: 30px;
+}
+
+.recipe h2 {
+    font-size: 22px;
+}
+
+.recipe p {
+    margin: 1rem 0;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.recipe a {
+    position: relative;
+    color: var(--dark-color);
+}
+
+.recipe a:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -3px;
+    left: 0;
+    background-color: var(--primary-color);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.recipe a:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.recipe li {
+    list-style-type: none;
+    margin-left: 10px;
+}
+
+.recipe i {
+    color: var(--primary-color);
+    margin: 0 5px;
+}
+
+/*.recipe .grid {*/
+/*    overflow: visible;*/
+/*    grid-template-columns: 70% 30%;*/
+/*    gap: 30px;*/
+/*}*/
+
+.recipe .card {
+    float: right;
+    margin-left: 3%;
+    margin-bottom: 3%;
+    width: 25%;
+}
+
+.recipe button {
+    transition: transform 0.2s ease-in;
+}
+
+
 /* footer */
 
 .footer {
@@ -126,12 +201,18 @@ img {
 }
 
 .card {
-    background-color: var(--white);;
+    background-color: var(--white);
     color: #333;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
     margin: 10px;
+    object-fit: fill;
+}
+
+.img {
+    height: 100%;
+    width: auto;
 }
 
 .btn {
@@ -147,10 +228,6 @@ img {
 .btn-outline {
     background-color: transparent;
     border: 1px var(--white) solid;
-}
-
-.btn:hover {
-    transform: scale(0.95);
 }
 
 .text-center {
