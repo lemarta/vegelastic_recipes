@@ -142,8 +142,8 @@ class RecipeDetailsView(View):
             elif servings_modifier == 'less' and servings_multiplier > 1:
                 servings_multiplier -= 1
                 response.set_cookie(key='servings_multiplier', value=servings_multiplier)
-            else:
-                servings_multiplier = 1
+        else:
+            servings_multiplier = 1
 
         portions_grammar_name, dynamic_portions = calculate_dynamic_portions(recipe, servings_multiplier)
 
