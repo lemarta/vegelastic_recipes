@@ -13,29 +13,37 @@
             <h1>{{ recipe.name }}</h1>
             <p>{{ recipe.meal_description }}</p>
 
-            <h2>Składniki na {{ recipe.dynamic_portions.dynamic_portions }}
-                {{ recipe.dynamic_portions.portions_grammar_name }}:</h2>
+            <h2>Składniki na {{ dynamic_portions }}
+                {{ portions_grammar_name }}:</h2>
+
+            <p>Gotujesz na więcej osób? Przelicz potrzebne składniki</p>
+            <form method="post" action="">
+                {% csrf_token %}
+                <button class="btn-outline" value="more" name="modify_servings"><i class="fas fa-plus"></i></button>
+                <button class="btn-outline" value="less" name="modify_servings"><i class="fas fa-minus"></i></button>
+            </form>
+
             <ul>
-                {% for recipe_ingredient in recipe_ingredients %}
+                {% for recipe_ingredient in recipe_ingredients_data %}
                     <li>
                         <p><i class="fas fa-seedling"></i>
-                        {% if recipe_ingredient.find_fraction_display.needs_display %}
-                            {% if recipe_ingredient.find_fraction_display.has_decimal_place %}
-                                    {{ recipe_ingredient.find_fraction_display.decimal }}
-                                {% if recipe_ingredient.find_fraction_display.fraction %}
-                                    i {{ recipe_ingredient.find_fraction_display.fraction }}
+                        {% if recipe_ingredient.requires_display %}
+                            {% if recipe_ingredient.has_decimal_place %}
+                                    {{ recipe_ingredient.decimal }}
+                                {% if recipe_ingredient.fraction %}
+                                    i {{ recipe_ingredient.fraction }}
                                 {% endif %}
                             {% else %}
-                                {{ recipe_ingredient.find_fraction_display.fraction }}
+                                {{ recipe_ingredient.fraction }}
                             {% endif %}
                         {% endif %}
-                        {% if recipe_ingredient.dynamic_grammar_name.requires_measure_name %}
-                            {{ recipe_ingredient.dynamic_grammar_name.measure_name }}
+                        {% if recipe_ingredient.requires_measure_name %}
+                            {{ recipe_ingredient.measure_name }}
                         {% endif %}
                         {% if recipe_ingredient.ingredient.is_searchable %}
                             <a href="#">
                         {% endif %}
-                        {{ recipe_ingredient.dynamic_grammar_name.ingredient_name }}
+                        {{ recipe_ingredient.ingredient_name }}
                     {% if recipe_ingredient.ingredient.is_searchable %}
                         </a>
                     {% endif %}
@@ -43,13 +51,6 @@
                     </li>
                 {% endfor %}
             </ul>
-
-            <p>Psst! Gotujesz na więcej osób? Przelicz potrzebne składniki</p>
-            <form method="post" action="">
-                {% csrf_token %}
-                <button class="btn-outline" value="more" name="modify_servings"><i class="fas fa-plus"></i></button>
-                <button class="btn-outline" value="less" name="modify_servings"><i class="fas fa-minus"></i></button>
-            </form>
 
             <h2>Przygotowanie</h2>
             <p>Czas przygotowania:
