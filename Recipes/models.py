@@ -40,7 +40,6 @@ class Recipe(models.Model):
     prep_instructions = models.TextField(blank=True)
     has_servings = models.BooleanField()
     servings = models.PositiveSmallIntegerField(null=True, blank=True)
-    servings_multiplier = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=256, blank=True)
@@ -83,6 +82,12 @@ class Ingredient(models.Model):
     name_half = models.CharField(max_length=256)
     recipe = models.ManyToManyField(Recipe, through="RecipeIngredient")
     is_searchable = models.BooleanField(default=False)
+    slug = models.SlugField(max_length=256, blank=True)
+    ingredient_description = models.TextField(blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -97,7 +102,6 @@ class RecipeCategory(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    ingredient_description = models.TextField(blank=True)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_ingredients')
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipe_ingredients')
     measure = models.IntegerField(choices=MEASURE_CHOICES)

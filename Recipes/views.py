@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.views import View
 
-from Recipes.models import Recipe, RecipeImage, RecipeIngredient
+from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage
 
 # Create your views here.
 
@@ -258,3 +258,24 @@ def get_recipe_ingredients_data(recipe_ingredients, servings_multiplier):
         }
         recipe_ingredients_data.append(recipe_ingredient_data)
     return recipe_ingredients_data
+
+
+class IngredientDetailsView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        ingredient_slug = kwargs['slug']
+        ingredient = Ingredient.objects.get(slug=ingredient_slug)
+        ingredient_recipes = RecipeIngredient.objects.filter(ingredient_id=ingredient.pk)
+        try:
+            ingredient_image = IngredientImage.objects.filter(ingredient_id=ingredient.pk)[0]
+        except IndexError:
+            ingredient_image = None
+
+        context = {
+            'ingredient': ingredient,
+            'ingredient_image': ingredient_image,
+            'ingredient_recipes': ingredient_recipes,
+        }
+
+        return render(request, template_name='Recipes/ingredient-details.html', context=context)

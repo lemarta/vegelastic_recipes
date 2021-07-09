@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section class="recipe">
+    <div class="container">
+        <div class="card">
+            <img src='/{{ ingredient_image.image }}' alt='{{ ingredient.name }}'>
+        </div>
+        <div>
+            <h1>{{ ingredient.name }}</h1>
+            <p>{{ ingredient.ingredient_description }}</p>
+
+            <h2>Masz w domu {{ ingredient.name }}? Zajrzyj do któregoś z moich przepisów i przygotuj coś pysznego:</h2>
+
+            <ul>
+                {% for recipe in ingredient_recipes %}
+                    <li>
+                        <p><i class="fas fa-seedling"></i>
+                            <a href="/przepis/{{ recipe.recipe.slug }}/">{{recipe.recipe.name}}</a>
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
