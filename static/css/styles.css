@@ -87,6 +87,11 @@ img {
 
 .recipe h1 {
     font-size: 30px;
+    display: inline-block;
+}
+
+.recipe h1::first-letter {
+    text-transform: uppercase;
 }
 
 .recipe h2 {

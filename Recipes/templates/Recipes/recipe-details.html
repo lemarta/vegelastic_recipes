@@ -24,27 +24,27 @@
             </form>
 
             <ul>
-                {% for recipe_ingredient in recipe_ingredients_data %}
+                {% for ingredient_data in recipe_ingredients_data %}
                     <li>
                         <p><i class="fas fa-seedling"></i>
-                        {% if recipe_ingredient.requires_display %}
-                            {% if recipe_ingredient.has_decimal_place %}
-                                    {{ recipe_ingredient.decimal }}
-                                {% if recipe_ingredient.fraction %}
-                                    i {{ recipe_ingredient.fraction }}
+                        {% if ingredient_data.requires_display %}
+                            {% if ingredient_data.has_decimal_place %}
+                                    {{ ingredient_data.decimal }}
+                                {% if ingredient_data.fraction %}
+                                    i {{ ingredient_data.fraction }}
                                 {% endif %}
                             {% else %}
-                                {{ recipe_ingredient.fraction }}
+                                {{ ingredient_data.fraction }}
                             {% endif %}
                         {% endif %}
-                        {% if recipe_ingredient.requires_measure_name %}
-                            {{ recipe_ingredient.measure_name }}
+                        {% if ingredient_data.requires_measure_name %}
+                            {{ ingredient_data.measure_name }}
                         {% endif %}
-                        {% if recipe_ingredient.ingredient.is_searchable %}
-                            <a href="#">
+                        {% if ingredient_data.recipe_ingredient.ingredient.is_searchable %}
+                            <a href="/skladnik/{{ ingredient_data.recipe_ingredient.ingredient.slug }}/">
                         {% endif %}
-                        {{ recipe_ingredient.ingredient_name }}
-                    {% if recipe_ingredient.ingredient.is_searchable %}
+                        {{ ingredient_data.ingredient_name }}
+                    {% if ingredient_data.recipe_ingredient.ingredient.is_searchable %}
                         </a>
                     {% endif %}
                         </p>
