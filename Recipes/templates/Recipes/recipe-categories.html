@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section class="recipe">
+    <div class="container">
+        <div>
+            <h1>Kategorie:</h1>
+
+            <ul>
+                <div class="uppercase-first recipe-category">
+                    {% for category_number, category_name_pl in categories.items %}
+                        <li>
+                            <p><i class="fas fa-seedling"></i>
+                                <a href="/kategoria/{{ category_number }}/">{{ category_name_pl }}</a>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </div>
+            </ul>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

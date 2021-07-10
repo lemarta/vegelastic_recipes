@@ -137,6 +137,10 @@ img {
     margin: 0 5px;
 }
 
+.recipe .recipe-category {
+    font-size: 22px;
+}
+
 /*.recipe .grid {*/
 /*    overflow: visible;*/
 /*    grid-template-columns: 70% 30%;*/
@@ -269,6 +273,14 @@ img {
 
 .grid-6 {
     grid-template-columns: repeat(6, 1fr);
+}
+
+.uppercase-first a{
+    display: inline-block;
+}
+
+.uppercase-first a::first-letter {
+    text-transform: uppercase;
 }
 
 /* margin */
