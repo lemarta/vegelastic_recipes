@@ -16,12 +16,14 @@
             <h2>Składniki na {{ dynamic_portions }}
                 {{ portions_grammar_name }}:</h2>
 
-            <p>Gotujesz na więcej osób? Przelicz potrzebne składniki</p>
-            <form method="post" action="">
-                {% csrf_token %}
-                <button class="btn-outline" value="more" name="modify_servings"><i class="fas fa-plus"></i></button>
-                <button class="btn-outline" value="less" name="modify_servings"><i class="fas fa-minus"></i></button>
-            </form>
+            <div class="recalculate">
+                <p>Gotujesz na więcej osób? Przelicz potrzebne składniki</p>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <button class="btn-outline" value="more" name="modify_servings"><i class="fas fa-plus"></i></button>
+                    <button class="btn-outline" value="less" name="modify_servings"><i class="fas fa-minus"></i></button>
+                </form>
+            </div>
 
             <ul>
                 {% for ingredient_data in recipe_ingredients_data %}
