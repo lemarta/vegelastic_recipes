@@ -25,4 +25,5 @@ urlpatterns = [
     path('przepis/<slug:slug>/', recipe_views.RecipeDetailsView.as_view()),
     path('skladnik/<slug:slug>/', recipe_views.IngredientDetailsView.as_view()),
     path('kategorie/', recipe_views.RecipeCategoriesView.as_view()),
+    path('kategoria/<int:pk>/', recipe_views.RecipeCategoryView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

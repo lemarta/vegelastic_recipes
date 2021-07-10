@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.views import View
 
-from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, CATEGORY_CHOICES
+from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, CATEGORY_CHOICES, \
+    RecipeCategory
 
 # Create your views here.
 
@@ -131,7 +132,11 @@ class RecipeDetailsView(View):
         recipe_slug = kwargs['slug']
         recipe = Recipe.objects.get(slug=recipe_slug)
         recipe_ingredients = RecipeIngredient.objects.filter(recipe_id=recipe.pk)
-        recipe_image = RecipeImage.objects.filter(recipe_id=recipe.pk)[0]
+
+        try:
+            recipe_image = RecipeImage.objects.filter(recipe_id=recipe.pk)[0]
+        except IndexError:
+            recipe_image = None
 
         response = HttpResponse()
 
@@ -299,3 +304,29 @@ class RecipeCategoriesView(View):
         }
 
         return render(request, template_name='Recipes/recipe-categories.html', context=context)
+
+
+class RecipeCategoryView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        category_key = kwargs['pk']
+        category_name = CATEGORIES_PL[category_key]
+        category_recipes = RecipeCategory.objects.filter(name=category_key)[0].recipe.all()
+        recipes_data = []
+        for recipe in category_recipes:
+            try:
+                recipe_image = RecipeImage.objects.filter(recipe_id=recipe.pk)[0]
+            except IndexError:
+                recipe_image = None
+            recipes_data.append({
+                'recipe': recipe,
+                'recipe_image': recipe_image,
+            })
+
+        context = {
+            'category_name': category_name,
+            'recipes_data': recipes_data,
+        }
+
+        return render(request, template_name='Recipes/category.html', context=context)

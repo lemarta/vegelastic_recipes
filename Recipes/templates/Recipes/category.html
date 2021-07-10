@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section class="category">
+
+    <h1 class="md text-center my-2">
+
+        Przepisy w kategorii: {{ category_name }}
+
+    </h1>
+
+    <div class="container grid grid-6">
+
+        {% for recipe_data in recipes_data %}
+        <a href="/przepis/{{ recipe_data.recipe.slug }}/">
+            <div class="card">
+
+                <img src='/{{recipe_data.recipe_image.image}}' alt='{{recipe_data.recipe.name}}'>
+                <h4>{{ recipe_data.recipe.name }}</h4>
+
+            </div>
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
