@@ -96,10 +96,10 @@ img {
 
 .recipe h2 {
     font-size: 22px;
+    padding-top: 0.5rem;
 }
 
 .recipe p {
-    margin: 1rem 0;
     text-align: justify;
     text-justify: inter-word;
 }
@@ -154,7 +154,8 @@ img {
     transition: transform 0.2s ease-in;
 }
 
-.recipe form {
+.recipe .recalculate p,
+.recipe .recalculate form {
     display: inline-block;
 }
 
@@ -162,6 +163,10 @@ img {
 
 .footer {
     margin-top: auto;
+}
+
+.recipe .recalculate {
+    margin-bottom: 1rem;
 }
 
 .footer a {

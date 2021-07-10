@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.views import View
 
-from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage
+from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, RecipeCategory
 
 # Create your views here.
 
