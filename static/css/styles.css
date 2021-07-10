@@ -41,10 +41,6 @@ p {
     margin: 10px 0;
 }
 
-img {
-    width: 100%;
-}
-
 /* navbar styling */
 
 .navbar {
@@ -141,17 +137,10 @@ img {
     font-size: 22px;
 }
 
-/*.recipe .grid {*/
-/*    overflow: visible;*/
-/*    grid-template-columns: 70% 30%;*/
-/*    gap: 30px;*/
-/*}*/
-
 .recipe .card {
     float: right;
     margin-left: 3%;
     margin-bottom: 3%;
-    width: 35%;
 }
 
 .recipe button {
@@ -161,6 +150,12 @@ img {
 .recipe .recalculate p,
 .recipe .recalculate form {
     display: inline-block;
+}
+
+/* category*/
+
+.card h4 {
+    text-align: center;
 }
 
 /* footer */
@@ -224,12 +219,13 @@ img {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
     margin: 10px;
-    object-fit: fill;
 }
 
-.img {
-    height: 100%;
-    width: auto;
+img {
+    height: 20rem;
+    width: 20rem;
+    object-fit: cover;
+    object-position: 50% 50%;
 }
 
 .btn {
