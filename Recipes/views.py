@@ -3,9 +3,18 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.views import View
 
-from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, RecipeCategory
+from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, CATEGORY_CHOICES
 
 # Create your views here.
+
+CATEGORIES_PL = {
+    1: "śniadania",
+    2: "kolacje",
+    3: "obiady",
+    4: "lunche",
+    5: "desery",
+    6: "inne",
+}
 
 TEASPOON_GRAMMAR_PL = {
     1: "łyżeczka",
@@ -279,3 +288,14 @@ class IngredientDetailsView(View):
         }
 
         return render(request, template_name='Recipes/ingredient-details.html', context=context)
+
+
+class RecipeCategoriesView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        context = {
+            'categories': CATEGORIES_PL
+        }
+
+        return render(request, template_name='Recipes/recipe-categories.html', context=context)
