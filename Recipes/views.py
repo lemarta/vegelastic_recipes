@@ -1,10 +1,11 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.views import View
 
 from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, CATEGORY_CHOICES, \
     RecipeCategory
+from Recipes.forms import RecipeForm
 
 # Create your views here.
 
@@ -103,7 +104,10 @@ class RecipeDetailsView(View):
         recipe_slug = kwargs['slug']
         recipe = Recipe.objects.get(slug=recipe_slug)
         recipe_ingredients = RecipeIngredient.objects.filter(recipe_id=recipe.pk)
-        recipe_image = RecipeImage.objects.filter(recipe_id=recipe.pk)[0]
+        try:
+            recipe_image = RecipeImage.objects.filter(recipe_id=recipe.pk)[0]
+        except IndexError:
+            recipe_image = None
 
         response = HttpResponse()
 
@@ -332,6 +336,43 @@ class RecipeCategoryView(View):
         return render(request, template_name='Recipes/category.html', context=context)
 
 
+class AddRecipeView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        form = RecipeForm()
+        message = 'Dodaj przepis'
+
+        context = {
+            'form': form,
+            'message': message,
+        }
+
+        return render(request, template_name='Recipes/add-recipe.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            meal_description = form.cleaned_data['meal_description']
+            prep_time = form.cleaned_data['prep_time']
+            prep_instructions = form.cleaned_data['prep_instructions']
+            has_servings = form.cleaned_data['has_servings']
+            servings = form.cleaned_data['servings']
+
+            recipe = Recipe.objects.create(
+                name=name,
+                meal_description=meal_description,
+                prep_time=prep_time,
+                prep_instructions=prep_instructions,
+                has_servings=has_servings,
+                servings=servings,
+            )
+
+            return redirect('/')
+
+          
 class SearchResultsView(View):
 
     def get(self, request, *args, **kwargs):
