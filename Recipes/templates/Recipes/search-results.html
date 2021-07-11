@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<section class="search-results">
+
+    <h1 class="md text-center my-2">
+
+        Wyniki wyszukiwania dla: {{ searched }}
+
+    </h1>
+
+    <div class="container grid grid-6">
+
+        {% for search_result in search_results %}
+
+            {% if search_result.recipe %}
+
+                <a href="/przepis/{{ search_result.recipe.slug }}/">
+                    <div class="card">
+
+                        <img src='/{{search_result.recipe_image.image}}' alt='{{search_result.recipe.name}}'>
+                        <h4>{{ search_result.recipe.name }}</h4>
+
+                    </div>
+                </a>
+
+            {% elif search_result.ingredient %}
+
+                <a href="/skladnik/{{ search_result.ingredient.slug }}/">
+                    <div class="card">
+
+                        <img src='/{{search_result.ingredient_image.image}}' alt='{{search_result.ingredient.name}}'>
+                        <h4>{{ search_result.ingredient.name }}</h4>
+
+                    </div>
+                </a>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
