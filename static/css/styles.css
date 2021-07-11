@@ -50,7 +50,8 @@ p {
     font-weight: 400;
 }
 
-.navbar ul {
+.navbar ul,
+.navbar div {
     display: flex;
 }
 
@@ -70,6 +71,32 @@ p {
 
 .logo {
     color: var(--bright-color);
+}
+
+.navbar .search input {
+    background: transparent;
+    border-width: 0 0 1px;
+    border-color: var(--bright-color);
+    outline: 0;
+    color: var(--bright-color);
+}
+
+.navbar .search input {
+    background: transparent;
+    border-width: 0 0 1px;
+    border-color: var(--bright-color);
+    outline: 0;
+}
+
+.navbar .search input::placeholder,
+.navbar .search input {
+    color: var(--bright-color);
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+
+.navbar .search button {
+    padding: 10px 0 10px 10px;
 }
 
 /* recipe */

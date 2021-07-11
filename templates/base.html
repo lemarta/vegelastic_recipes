@@ -11,15 +11,26 @@
 
 <!--Navigation bar-->
 <div class="navbar">
-    <div class="container flex">
-        <h1 class="logo">Vegelastic</h1>
-        <nav>
-            <ul>
-                <li><a href="/kategorie/">Kategorie</a></li>
-                <li><a href="#">O autorce</a></li>
-                <li><a href="#">Kontakt</a></li>
-            </ul>
-        </nav>
+    <div class="grid grid-3 container flex">
+        <div>
+            <h1 class="logo">Vegelastic</h1>
+        </div>
+        <div>
+            <nav>
+                <ul>
+                    <li><a href="/kategorie/">Kategorie</a></li>
+                    <li><a href="#">O autorce</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="search">
+            <form action="/szukaj/" method="post">
+                {% csrf_token %}
+                <input class="" type="search" name="searched" placeholder="Szukaj...">
+                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
     </div>
 </div>
 

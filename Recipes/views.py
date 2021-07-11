@@ -330,3 +330,49 @@ class RecipeCategoryView(View):
         }
 
         return render(request, template_name='Recipes/category.html', context=context)
+
+
+class SearchResultsView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        context = {
+
+        }
+
+        return render(request, template_name='Recipes/search-results.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+
+        searched = request.POST.get('searched')
+        recipes = Recipe.objects.filter(name__icontains=searched)
+        ingredients = Ingredient.objects.filter(name__icontains=searched)
+        search_results = []
+
+        for recipe in recipes:
+            try:
+                recipe_image = RecipeImage.objects.filter(recipe_id=recipe.pk)[0]
+            except IndexError:
+                recipe_image = None
+            search_results.append({
+                'recipe': recipe,
+                'recipe_image': recipe_image,
+            })
+
+        for ingredient in ingredients:
+            if ingredient.is_searchable:
+                try:
+                    ingredient_image = IngredientImage.objects.filter(ingredient_id=ingredient.pk)[0]
+                except IndexError:
+                    ingredient_image = None
+                search_results.append({
+                    'ingredient': ingredient,
+                    'ingredient_image': ingredient_image,
+                })
+
+        context = {
+            'searched': searched,
+            'search_results': search_results
+        }
+
+        return render(request, template_name='Recipes/search-results.html', context=context)
