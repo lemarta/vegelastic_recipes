@@ -182,8 +182,23 @@ p {
 /* category*/
 
 .card h4 {
-    text-align: center;
+    display: inline-block;
 }
+
+.card h4::first-letter {
+    text-transform: uppercase;
+}
+
+/* search results */
+
+.search-results h4 {
+    display: inline-block;
+}
+
+.search-results h4::first-letter {
+    text-transform: uppercase;
+}
+
 
 /* footer */
 
