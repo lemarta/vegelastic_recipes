@@ -12,4 +12,3 @@ class RecipeForm(ModelForm):
     class Meta:
         model = Recipe
         fields = ['name', 'meal_description', 'prep_time', 'prep_instructions', 'has_servings', 'servings']
-
