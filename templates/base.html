@@ -11,10 +11,12 @@
 
 <!--Navigation bar-->
 <div class="navbar">
+
     <div class="grid grid-3 container flex">
         <div>
             <h1 class="logo">Vegelastic</h1>
         </div>
+
         <div>
             <nav>
                 <ul>
@@ -24,6 +26,7 @@
                 </ul>
             </nav>
         </div>
+
         <div class="search">
             <form action="/szukaj/" method="post">
                 {% csrf_token %}
@@ -31,8 +34,29 @@
                 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
+
     </div>
+
 </div>
+
+{% if user.is_authenticated %}
+    <div class="navbar log">
+
+        <div class="grid grid-3 container flex">
+
+            <div>
+                <p>Witaj, {{ user.username }}</p>
+            </div>
+
+            <div>
+                <a href="/logout"><button class="btn">Wyloguj się</button></a>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endif %}
 
 <div>
 <!-- Page content will be loaded here -->
@@ -42,10 +66,13 @@
 
 <!-- footer -->
 <footer class="footer bg-dark py-2">
+
     <div class="container grid grid-3 flex">
+
         <div>
             <h1>Vegelastic</h1>
         </div>
+
         <div>
             <nav>
                 <ul>
@@ -56,12 +83,16 @@
                 </ul>
             </nav>
         </div>
+
+        <div>
             <div class="social">
                 <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
                 <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
             </div>
         </div>
+
     </div>
+
 </footer>
 </body>
 </html>

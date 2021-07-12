@@ -1,13 +1,17 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.views import View
+from django.contrib.auth import get_user_model, login, authenticate, logout
 
 from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, CATEGORY_CHOICES, \
     RecipeCategory
 from Recipes.forms import RecipeForm
 
 # Create your views here.
+
+User = get_user_model()
 
 CATEGORIES_PL = {
     1: "śniadania",
@@ -336,7 +340,7 @@ class RecipeCategoryView(View):
         return render(request, template_name='Recipes/category.html', context=context)
 
 
-class AddRecipeView(View):
+class AddRecipeView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
 
@@ -417,3 +421,26 @@ class SearchResultsView(View):
         }
 
         return render(request, template_name='Recipes/search-results.html', context=context)
+
+
+class UserLoginView(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'login.html')
+
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("index")
+        else:
+            return render(request, 'login.html')
+
+
+class UserLogoutView(View):
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect("index")

@@ -99,6 +99,23 @@ p {
     padding: 10px 0 10px 10px;
 }
 
+/* login */
+
+.log {
+    height: 50px;
+}
+
+.log a:hover {
+    border-bottom: none;
+}
+
+.log p,
+.log button {
+    padding: 0;
+    margin: 0 0 5px 0;
+}
+
+
 /* recipe */
 
 .recipe {
@@ -202,20 +219,34 @@ p {
 /* form */
 
 .form.card {
-    margin: 1rem 12rem;
+    width: 50rem;
 }
 
 .form input[type=text],
-.form textarea {
+.form input[type=submit],
+.form textarea,
+.form label{
     display: block;
     width: 100%;
+    margin: 10px 0;
 }
 
-.form label {
+/* login */
+
+.login.card {
+    width: 20rem;
+    position: center;
+    margin: 3rem;
+}
+
+.login label,
+.login input {
     display: block;
     width: 100%;
     padding: 5px 0;
+    margin: 15px 0;
 }
+
 
 /* footer */
 
