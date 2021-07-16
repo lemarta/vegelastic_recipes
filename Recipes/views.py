@@ -5,8 +5,7 @@ from django.template.loader import get_template
 from django.views import View
 from django.contrib.auth import get_user_model, login, authenticate, logout
 
-from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, CATEGORY_CHOICES, \
-    RecipeCategory
+from Recipes.models import Recipe, RecipeImage, RecipeIngredient, Ingredient, IngredientImage, RecipeCategory
 from Recipes.forms import RecipeForm
 
 # Create your views here.
@@ -95,15 +94,30 @@ FRACTIONS_DISPLAY = {
 
 
 class MainPageView(View):
-
+    """
+    Index page view
+    # TODO: create main page here
+    """
     def get(self, request, *args, **kwargs):
+        """
+        Generates the index page
+        """
         context = {}
         return render(request=request, template_name='base.html', context=context)
 
 
 class RecipeDetailsView(View):
+    """
+    Handles presentation of details of a specific recipe; allows for a user to recalculate the recipe to another
+    amount of servings
+    """
 
     def get(self, request, *args, **kwargs):
+        """
+        Finds recipe based on the slug, filters its details and first from of available pictures from database
+        as well as all ingredients required to prepare this recipe and lists the data;
+        sets multiplier in a cookie as 1
+        """
 
         recipe_slug = kwargs['slug']
         recipe = Recipe.objects.get(slug=recipe_slug)
@@ -136,6 +150,11 @@ class RecipeDetailsView(View):
         return response
 
     def post(self, request, *args, **kwargs):
+        """
+        Finds recipe based on the slug, filters its details and first from of available pictures from database
+        as well as all ingredients required to prepare this recipe and lists the data;
+        overwrites the multiplier stored in a cookie and recalculates the portions and required ingredients based on it
+        """
 
         recipe_slug = kwargs['slug']
         recipe = Recipe.objects.get(slug=recipe_slug)
@@ -178,6 +197,14 @@ class RecipeDetailsView(View):
 
 
 def calculate_dynamic_portions(recipe, servings_multiplier):
+    """
+    Recalculates the default amount of portions and applies grammar to name based on a servings multiplier stored in a
+    cookie
+
+    @param recipe: recipe for which portions are calculated
+    @param servings_multiplier: currently selected amount of servings sourced from a cookie
+    @return: amount of portions and grammatically correct name
+    """
     dynamic_portions = recipe.servings * servings_multiplier
     if dynamic_portions == 1:
         portions_grammar_name = PORTION_GRAMMAR_PL[1]
@@ -191,6 +218,13 @@ def calculate_dynamic_portions(recipe, servings_multiplier):
 
 
 def find_closest_value_in_list(lst, val):
+    """
+    From a list finds value that is arithmetically closest to a given value
+
+    @param lst: list of accepted values
+    @param val: value that will be checked against lst
+    @return: closest matching value from lst
+    """
     return lst[min(range(len(lst)), key=lambda i: abs(lst[i] - val))]
 
 
@@ -220,6 +254,15 @@ def find_fraction_display(recipe_ingredient, servings_multiplier):
 
 
 def dynamic_grammar_name(recipe_ingredient, servings_multiplier):
+    """
+    Generates grammatically correct grammar name of ingredient and/or measure of an ingredient based on selected amount
+    of servings
+
+    @param recipe_ingredient: collection of data about and ingredient including mesure type, amount and several
+    grammatical name options
+    @param servings_multiplier: currently selected amount of servings sourced from a cookie
+    @return: grammatically correct name of ingredient and/or measure for a given amount of it
+    """
     measure = recipe_ingredient.measure
     dynamic_amount = recipe_ingredient.amount * servings_multiplier
     measure_pl_grammar_dict = MEASURE_GRAMMAR_PL[measure]
@@ -255,6 +298,16 @@ def dynamic_grammar_name(recipe_ingredient, servings_multiplier):
 
 
 def get_recipe_ingredients_data(recipe_ingredients, servings_multiplier):
+    """
+    Dynamically recalculates the amount of ingredient required based on the currently selected amount of servings and
+    applies correct grammar
+
+    @param recipe_ingredients: collection of information about every ingredient required for a recipe for a
+    default amount of servings
+    @param servings_multiplier: currently selected amount of servings sourced from a cookie
+    @return: collection of information about every ingredient required for a recipe appropriate for a current selection
+    of servings
+    """
     recipe_ingredients_data = []
     for recipe_ingredient in recipe_ingredients:
         requires_display, has_decimal_place, decimal, fraction = find_fraction_display(recipe_ingredient,
@@ -276,9 +329,14 @@ def get_recipe_ingredients_data(recipe_ingredients, servings_multiplier):
 
 
 class IngredientDetailsView(View):
-
+    """
+    View showing details of an ingredient
+    """
     def get(self, request, *args, **kwargs):
-
+        """
+        Finds ingredient based on the slug, filters its details and first from of available pictures from database
+        as well as all recipes that include this ingredient and lists the data
+        """
         ingredient_slug = kwargs['slug']
         ingredient = Ingredient.objects.get(slug=ingredient_slug)
         ingredient_recipes = RecipeIngredient.objects.filter(ingredient_id=ingredient.pk)
@@ -297,20 +355,28 @@ class IngredientDetailsView(View):
 
 
 class RecipeCategoriesView(View):
-
+    """
+    View listing all categories
+    """
     def get(self, request, *args, **kwargs):
-
+        """
+        Generates a view with listed categories
+        """
         context = {
             'categories': CATEGORIES_PL
         }
-
         return render(request, template_name='Recipes/recipe-categories.html', context=context)
 
 
 class RecipeCategoryView(View):
-
+    """
+    View listing all recipes in a selected category
+    """
     def get(self, request, *args, **kwargs):
-
+        """
+        Finds category based on the primary key from the slug, filters all recipes classified in this category and
+        renders a page listing them
+        """
         category_key = kwargs['pk']
         category_name = CATEGORIES_PL[category_key]
         category_recipes = RecipeCategory.objects.filter(name=category_key)[0].recipe.all()
@@ -334,9 +400,13 @@ class RecipeCategoryView(View):
 
 
 class AddRecipeView(LoginRequiredMixin, View):
-
+    """
+    View handling the process of saving a new recipe to the database
+    """
     def get(self, request, *args, **kwargs):
-
+        """
+        Renders an empty form for a new recipe
+        """
         form = RecipeForm()
         message = 'Dodaj przepis'
 
@@ -348,7 +418,9 @@ class AddRecipeView(LoginRequiredMixin, View):
         return render(request, template_name='Recipes/add-recipe.html', context=context)
 
     def post(self, request, *args, **kwargs):
-
+        """
+        Intercepts new recipe data from a form and saves it to a database, then redirects to index page
+        """
         form = RecipeForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
@@ -371,17 +443,22 @@ class AddRecipeView(LoginRequiredMixin, View):
 
           
 class SearchResultsView(View):
+    """
+    View handling the searching process
+    """
 
     def get(self, request, *args, **kwargs):
-
-        context = {
-
-        }
-
+        """
+        Renders empty search result page
+        """
+        context = {}
         return render(request, template_name='Recipes/search-results.html', context=context)
 
     def post(self, request, *args, **kwargs):
-
+        """
+        Intercepts searched phrase and runs a check in the database against recipes and ingredients containing it in
+        their names, then renders a view with a list of matching results
+        """
         searched = request.POST.get('searched')
         recipes = Recipe.objects.filter(name__icontains=searched)
         ingredients = Ingredient.objects.filter(name__icontains=searched)
@@ -417,11 +494,19 @@ class SearchResultsView(View):
 
 
 class UserLoginView(View):
-
+    """
+    View handling login process
+    """
     def get(self, request, *args, **kwargs):
+        """
+        Renders login form
+        """
         return render(request, 'login.html')
 
     def post(self, request, *args, **kwargs):
+        """
+        Either logs user in and redirects to index page if credentials are correct or renders again
+        """
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
@@ -433,7 +518,12 @@ class UserLoginView(View):
 
 
 class UserLogoutView(View):
-
+    """
+    View handling logout process
+    """
     def get(self, request, *args, **kwargs):
+        """
+        Logs out currently logged in user and redirects to index page
+        """
         logout(request)
         return redirect("index")
