@@ -148,13 +148,6 @@ class RecipeDetailsView(View):
 
         response = HttpResponse()
 
-        cookie = request.COOKIES.get('servings_multiplier')
-
-        if cookie:
-            print(cookie)
-        else:
-            print('empty')
-
         if request.COOKIES.get('servings_multiplier'):
             servings_multiplier = int(request.COOKIES.get('servings_multiplier'))
             servings_modifier = request.POST.get('modify_servings')
