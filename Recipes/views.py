@@ -65,7 +65,7 @@ UNIT_GRAMMAR_PL = {
 }
 
 PORTION_GRAMMAR_PL = {
-    1: "porcja",
+    1: "porcję",
     2: "porcje",
     5: "porcji",
     0: "porcji",
@@ -269,7 +269,7 @@ def dynamic_grammar_name(recipe_ingredient, servings_multiplier):
     requires_measure_name = True
     if measure == 7:
         requires_measure_name = False
-        measure_name = measure_pl_grammar_dict[0]
+        measure_name = None
         if dynamic_amount == 1:
             ingredient_name = recipe_ingredient.ingredient.name_one
         elif dynamic_amount in [2, 3, 4]:
@@ -379,8 +379,13 @@ class RecipeCategoryView(View):
         """
         category_key = kwargs['pk']
         category_name = CATEGORIES_PL[category_key]
-        category_recipes = RecipeCategory.objects.filter(name=category_key)[0].recipe.all()
+        try:
+            category_recipes = RecipeCategory.objects.filter(name=category_key)[0].recipe.all()
+        except IndexError:
+            category_recipes = []
+
         recipes_data = []
+
         for recipe in category_recipes:
             try:
                 recipe_image = RecipeImage.objects.filter(recipe_id=recipe.pk)[0]
