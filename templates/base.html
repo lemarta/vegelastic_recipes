@@ -6,6 +6,7 @@
     <title>Vegelastic</title>
     <link rel="stylesheet" href="{% static '/css/styles.css' %}/">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -16,21 +17,61 @@
         <div>
             <h1 class="logo">Vegelastic</h1>
         </div>
-
+<!-- 
         <div>
             <nav>
                 <ul>
-                    <li><a href="/kategorie/">Kategorie</a></li>
+                    <li>
+                        <div class="dropdown">
+                            <a href="" class="dropbtn">Kategorie</a>
+                            <div class="my-categories">
+                                <a href="">Rodzaj posiłku</a>
+                                <a href="">Przeznaczenie</a>
+                                <a href="">Sezonowa szama</a>
+                                <a href="">Inne</a>
+                            </div>
+                        </div>
+                    </li>
                     <li><a href="#">O autorce</a></li>
                     <li><a href="#">Kontakt</a></li>
                 </ul>
             </nav>
-        </div>
+        </div> -->
+
+        <nav>
+            <ul id="top-menu">
+                <li id="categories">
+                    <a href="">Kategorie  <i class="fa fa-caret-down"></i></a>
+                    <ul class="drop">
+                        <li>
+                            <a href="">Rodzaj posiłku  <i class="fa fa-caret-right"></i></a>
+                            <ul>
+                                <li><a href="#">1</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="">Przeznaczenie  <i class="fa fa-caret-right"></i></a>
+                            <ul>
+                                <li><a href="#">1</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="">Sezonowa szama  <i class="fa fa-caret-right"></i></a>
+                            <ul >
+                                <li><a href="#">1</a></li>
+                            </ul>                            
+                        </li>
+                    </ul>    
+                </li>
+                <li><a href="#">O autorce</a></li>
+                <li><a href="#">Kontakt</a></li>
+            </ul>
+        </nav>
 
         <div class="search">
-            <form action="/szukaj/" method="post">
+            <form id="search-form" action="/szukaj/" method="post">
                 {% csrf_token %}
-                <input class="" type="search" name="searched" placeholder="Szukaj...">
+                <input type="search" name="searched" placeholder="Szukaj...">
                 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
@@ -87,12 +128,13 @@
         <div>
             <div class="social">
                 <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="https://www.instagram.com/vegelastic/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
             </div>
         </div>
 
     </div>
 
 </footer>
+<script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>
