@@ -211,7 +211,8 @@ ul#top-menu li ul li {
 
 .recipe a {
     position: relative;
-    color: var(--dark-color);
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 .recipe a:after {
