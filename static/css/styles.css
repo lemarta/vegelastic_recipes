@@ -46,23 +46,83 @@ p {
 .navbar {
     background-color: var(--primary-color);
     color: var(--dark-color);
-    height: 70px;
+    height: auto;
     font-weight: 400;
+    padding: 10px 0;
 }
 
-.navbar ul,
-.navbar div {
-    display: flex;
+nav {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .navbar .flex {
     justify-content: space-between;
 }
 
+ul#top-menu{
+    margin:0;
+    padding:0;
+}
+
+ul#top-menu li {
+    list-style:none;
+    float:left;
+    margin:0;
+    padding:0;
+    position:relative;
+}
+
+ul#top-menu .drop a {
+    width: 150px;
+    display: block;
+    padding: 5px;
+}
+
+ul#top-menu .drop a:hover {
+    border-bottom: none;
+}
+
+ul#top-menu li ul.drop{
+    margin:0;
+    padding:0;
+    width:150px;
+    position:relative;
+    display:none;
+}
+
+ul#top-menu li ul.drop ul{
+    margin:0;
+    padding:0;
+    width:150px;
+    position:absolute;
+    display:none;
+    left:150px;
+    top:0;
+}
+
+ul#top-menu li ul li {
+    margin:0;
+    padding:0;
+    list-style:none;
+    position:relative;
+}
+
+
 .navbar a {
+    color: var(--bright-color);
+    padding: 5px;
+    margin: 5px;
+}
+
+.dropbtn,
+.subnavbtn {
     color: var(--bright-color);
     padding: 10px;
     margin: 0 5px;
+    background-color: inherit;
+    font: inherit;
+    border: none;
 }
 
 .navbar a:hover {
@@ -98,6 +158,11 @@ p {
 .navbar .search button {
     padding: 10px 0 10px 10px;
 }
+
+.navbar #search-form {
+    float: right;
+}
+    
 
 /* login */
 
@@ -146,7 +211,8 @@ p {
 
 .recipe a {
     position: relative;
-    color: var(--dark-color);
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 .recipe a:after {
